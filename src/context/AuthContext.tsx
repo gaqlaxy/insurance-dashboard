@@ -1,84 +1,3 @@
-// import React, { createContext, useContext, useEffect, useState } from "react";
-// import {
-// 	Session,
-// 	User,
-// 	AuthResponse,
-// 	Provider,
-// 	SessionChangeCallback,
-// } from "@supabase/supabase-js";
-// import { supabase } from "../supabaseClient";
-
-// interface AuthContextType {
-// 	user: User | null;
-// 	session: Session | null;
-// 	signUp: (email: string, password: string) => Promise<AuthResponse>;
-// 	signIn: (email: string, password: string) => Promise<AuthResponse>;
-// 	signOut: () => Promise<void>;
-// 	resetPassword: (email: string) => Promise<{ data: any; error: any }>;
-// }
-
-// const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-// 	children,
-// }) => {
-// 	const [session, setSession] = useState<Session | null>(null);
-
-// 	useEffect(() => {
-// 		// Get initial session
-// 		supabase.auth.getSession().then(({ data: { session } }) => {
-// 			setSession(session);
-// 		});
-
-// 		// Listen for changes
-// 		const { data: listener } = supabase.auth.onAuthStateChange(
-// 			(_event, session) => setSession(session),
-// 		);
-
-// 		return () => {
-// 			listener.subscription.unsubscribe();
-// 		};
-// 	}, []);
-
-// 	const signUp = (email: string, password: string) =>
-// 		supabase.auth.signUp({ email, password });
-
-// 	const signIn = (email: string, password: string) =>
-// 		supabase.auth.signInWithPassword({ email, password });
-
-// 	// const signOut = () => supabase.auth.signOut();
-// 	const signOut = async () => {
-// 		await supabase.auth.signOut();
-// 	};
-
-// 	const resetPassword = (email: string) =>
-// 		supabase.auth.resetPasswordForEmail(email, {
-// 			// redirectTo: window.location.origin + "/reset-password",
-// 			redirectTo: `${window.location.origin}/reset-password`,
-// 		});
-
-// 	return (
-// 		<AuthContext.Provider
-// 			value={{
-// 				user: session?.user ?? null,
-// 				session,
-// 				signUp,
-// 				signIn,
-// 				signOut,
-// 				resetPassword,
-// 			}}
-// 		>
-// 			{children}
-// 		</AuthContext.Provider>
-// 	);
-// };
-
-// export const useAuth = (): AuthContextType => {
-// 	const ctx = useContext(AuthContext);
-// 	if (!ctx) throw new Error("useAuth must be used within AuthProvider");
-// 	return ctx;
-// };
-
 import React, { createContext, useContext, useEffect, useState } from "react";
 import type {
 	Session,
@@ -100,6 +19,9 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+
+
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
@@ -126,6 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 				}
 			},
 		);
+		
 
 		// Clean up
 		return () => {
@@ -144,11 +67,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			redirectTo: `${window.location.origin}/reset-password`,
 		});
 
+
+		
+		const [loading, setLoading] = useState(true); // Add loading state
+		useEffect(() => {
+			supabase.auth.getSession().then(({ data: { session }, error }) => {
+			  if (error) console.error("Initial session error:", error);
+			  setSession(session);
+			  setLoading(false);
+			});
+		  }, );
 	return (
 		<AuthContext.Provider
 			value={{
 				user: session?.user ?? null,
 				session,
+				loading,
 				signUp,
 				signIn,
 				signOut,
