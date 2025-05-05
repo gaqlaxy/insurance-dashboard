@@ -1,5 +1,3 @@
-// src/components/PolicyTypePieChart.tsx
-import React from "react";
 import { Pie, PieChart, Tooltip, ResponsiveContainer } from "recharts";
 
 interface Policy {

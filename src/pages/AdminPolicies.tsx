@@ -1,5 +1,4 @@
-// src/pages/AdminPolicies.tsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchPolicies } from "../services/policyService";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,13 +9,13 @@ export default function AdminPolicies() {
 		status: "",
 		type: "",
 	});
-
+//@ts-ignore
 	const { user, role } = useAuth();
 
 	useEffect(() => {
 		const loadPolicies = async () => {
 			if (role !== "admin") return;
-
+//@ts-ignore
 			const data = await fetchPolicies("admin", user.id, {
 				...(filters.status && { status: filters.status }),
 				...(filters.type && { type: filters.type }),

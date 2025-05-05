@@ -8,6 +8,7 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({
 	children,
+	//@ts-ignore
 	allowedRoles = [],
 }: ProtectedRouteProps) {
 	const { user, loading } = useAuth();

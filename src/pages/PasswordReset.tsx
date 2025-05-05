@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
 import { AuthLayout } from "../components/AuthLayout";
-import { Link } from "react-router-dom";
+
 
 export default function PasswordReset() {
   const [email, setEmail] = useState("");

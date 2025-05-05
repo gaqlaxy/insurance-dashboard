@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { PolicyTypeStatusChart } from "../components/PolicyTypeStatusChart";
 import { CoverageOverTimeChart } from "../components/CoverageOverTimeChart";
 import { PolicyTypePieChart } from "../components/PolicyTypePieChart";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const [policies, setPolicies] = useState<any[]>([]);
@@ -58,7 +59,11 @@ export default function Dashboard() {
     <header className="flex justify-between items-center mb-8">
       <div className="flex items-center space-x-2">
         <img src="logo.png" alt="InsureDash Logo" className="h-8 w-8" />
-        <span className="text-xl font-bold text-gray-800">InsureDash</span>
+
+        <Link to="/" className="text-2xl font-bold text-gray-800">
+							InsureDash
+						</Link>
+        {/* <span className="text-xl font-bold text-gray-800">InsureDash</span> */}
 		
       </div>
       <div className="flex items-center space-x-4">
