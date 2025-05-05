@@ -3,7 +3,7 @@ Insurance Policy Management Dashboard & Analytics Platform
 
 A secure, performant dashboard for managing and visualizing insurance policy data built with React, TypeScript, Supabase, Tailwind CSS, and Cloudflare Pages.
 
-Live Website: https://blue-lobster-dashboard1.pages.dev
+Live Website: https://insurance-dashboard.pages.dev/
 
 Tech Stack:
 
